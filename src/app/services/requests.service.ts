@@ -32,17 +32,17 @@ export class RequestsService {
       headers = new HttpHeaders({'cache-response': 'true'});
     }
 
-    return this.http.get<Request[]>(this.baseUrl+"requests/active/"+userId,{headers});
+    return this.http.get<Request[]>(this.baseUrl+"/requests/active/"+userId,{headers});
 
   }
 
   createRequest(request:Request){
 
-    return this.http.post<Request>(this.baseUrl+"requests/add",request);
+    return this.http.post<Request>(this.baseUrl+"/requests/add",request);
   }
 
   cancelRequest(requestId: any){
-    return this.http.put(this.baseUrl+"requests/cancel/"+requestId,null);  
+    return this.http.put(this.baseUrl+"/requests/cancel/"+requestId,null);  
   }
 
 }
