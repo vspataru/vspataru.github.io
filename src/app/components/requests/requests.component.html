@@ -1,0 +1,82 @@
+<div class="main-wrapper">
+<mat-tab-group>
+    <mat-tab label="Active requests">
+<div *ngIf="REQ_DATA_ACTIVE.length > 0; else nocontent" class="request-wrapper">
+    <div *ngFor="let request of REQ_DATA_ACTIVE" >
+        <mat-card class="request-card" >
+            <mat-card-header>
+                Request ID: {{request.requestId}}
+            </mat-card-header>
+            <mat-card-content>
+                <table>
+                    <th>Requested date</th>
+                    <th>Title</th>
+                    <th>Approval state</th>
+                    <th>Approved date</th>
+                    <th>Active</th>
+                    <tr>
+                        <td style="width: 120px;">
+                            {{request.requestedDate}}
+                        </td>
+                        <td style="width: 400px;" *ngFor="let book of request.requestedBooks">
+                            {{book.title}} 
+                        </td>
+                        <td style="width: 120px;">
+                            {{request.approved}}
+                        </td>
+                        <td style="width: 120px;">
+                            {{request.approvedDate}}
+                        </td>
+                        <td style="width: 120px;"> 
+                            {{request.active}}
+                        </td>
+                    </tr>
+                </table>
+                <button mat-raised-button (click)="cancelRequest(request.requestId)" [disabled] = "request.active == false">Cancel request</button>
+            </mat-card-content>
+        </mat-card>
+        <ng-template #nocontent><h1>You have no active requests</h1></ng-template>
+    </div>
+</div>
+
+</mat-tab>
+<mat-tab label="History">
+    <div *ngIf="REQ_DATA_HISTORY.length > 0; else nocontent" class="request-wrapper">
+        <div *ngFor="let request of REQ_DATA_HISTORY" >
+            <mat-card class="request-card" >
+                <mat-card-header>
+                    Request ID: {{request.requestId}}
+                </mat-card-header>
+                <mat-card-content>
+                    <table>
+                        <th>Requested date</th>
+                        <th>Title</th>
+                        <th>Approval state</th>
+                        <th>Approved date</th>
+                        <th>Active</th>
+                        <tr>
+                            <td style="width: 120px;">
+                                {{request.requestedDate}}
+                            </td>
+                            <td style="width: 400px;" *ngFor="let book of request.requestedBooks">
+                                {{book.title}} 
+                            </td>
+                            <td style="width: 120px;">
+                                {{request.approved}}
+                            </td>
+                            <td style="width: 120px;">
+                                {{request.approvedDate}}
+                            </td>
+                            <td style="width: 120px;"> 
+                                {{request.active}}
+                            </td>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <ng-template #nocontent> <h1>You have no requests</h1></ng-template>
+</mat-tab>
+</mat-tab-group>    
+</div>

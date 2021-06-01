@@ -1,0 +1,25 @@
+<div class="login-wrapper">
+<mat-card class="login-card">
+    <mat-card-title>
+        <h1>Welcome to Library-On</h1>
+        <img src="../../../assets/logo.png">
+    </mat-card-title>
+    <mat-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput type="text" placeholder="Username" matInput formControlName="username">
+            </mat-form-field> 
+            <mat-form-field appearance="fill">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" matInput formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field> 
+            <button type="submit" mat-raised-button color="primary">Login</button>
+        </form>
+        <h5 style="text-align: center; margin-top: 10px; color: grey;">Don't have an account yet? Register <span><a [routerLink]="" (click)="openRegistrationForm()">here.</a></span></h5>
+    </mat-card-content>
+</mat-card>
+</div>

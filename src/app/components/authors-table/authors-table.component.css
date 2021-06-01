@@ -1,0 +1,38 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+    margin-top: 15px;
+    background-color: white;
+  }
+  
+  td, th {
+    width: 20%;
+  }
+  mat-paginator{
+      width: 100%;
+      box-shadow: 0px 5px 5px 0px rgba(207, 207, 207, 0.719);
+  }
+  .mat-elevation-z8{
+    width: 100%;
+  }
+
+.tablewrapper{
+    margin-left: 20px;
+    max-width: 85%;
+    min-width: 80%;
+}
+
+.tablebutton{
+    margin-left: 5px;
+}
+
+.column{
+    align-items: center;
+    justify-content: center;
+}
+
+ 

@@ -1,0 +1,22 @@
+<app-announcements class="content-card"></app-announcements>
+<mat-card class="content-card-borrowed">
+    <mat-card-content>
+        <mat-card-title>
+            <h1 class="title"><mat-icon [inline]="true" color="primary" style="margin-right: 4px;">assignment</mat-icon>Your Borrowed Books</h1>
+        </mat-card-title>
+        <table *ngIf="borrowedBooks.length > 0; else noContent">
+            <th>Book ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <tr *ngFor="let book of borrowedBooks">
+                <td style="width: 70px;">{{book.bookId}}</td>
+                <td>{{book.title}}</td>
+                <td *ngIf="book.category; else emptyCell"><div>{{book.category.name}}</div></td>
+                <ng-template #emptyCell><td></td></ng-template>
+            </tr>
+        </table>
+        <ng-template #noContent><h3 style="color: grey;">You have no borrowed books, for now...</h3></ng-template>
+    </mat-card-content>
+</mat-card>
+
+<app-userbookstable class="content-table"></app-userbookstable>

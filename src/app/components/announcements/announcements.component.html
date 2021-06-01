@@ -1,0 +1,10 @@
+<mat-card class="content-card">
+    <mat-card-content>
+        <mat-card-title class="card-title">
+            <h1 class="title"><mat-icon [inline]="true" color="primary" style="margin-right: 4px;">announcement</mat-icon>{{currentAnnouncement.title}}</h1>
+        </mat-card-title>
+    <button class="next-button" mat-icon-button (click)="nextAnnouncement()"><mat-icon class="nav-icon">navigate_next</mat-icon></button>    
+    <button class="back-button" mat-icon-button (click)="lastAnnouncement()"><mat-icon class="nav-icon">navigate_before</mat-icon></button>  
+    <p>{{currentAnnouncement.content}}</p>
+    </mat-card-content>
+</mat-card>

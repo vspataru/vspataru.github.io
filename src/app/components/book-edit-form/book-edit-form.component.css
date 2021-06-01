@@ -1,0 +1,9 @@
+.buttonwrapper{
+display: flex;
+justify-content:space-evenly
+}
+
+.form-item{
+    width: 90%;
+    margin: auto;
+}

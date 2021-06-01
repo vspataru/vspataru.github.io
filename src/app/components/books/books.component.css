@@ -1,0 +1,31 @@
+.mainwrapper{
+  display: flex;
+  justify-content: space-between;
+}
+
+.formwrapper{
+  max-width: 30%;
+  background-color: white;
+  margin-right: 150px;
+  margin-top: 15px;
+  border-radius: 15px;
+  max-height: 500px;
+  box-shadow: 0px 5px 5px 0px rgba(207, 207, 207, 0.719);
+}
+
+.createform > button{
+  display: block;
+  width: 40%;
+  margin: auto;
+}
+
+
+.form-item,.form-item-description{
+  width: 90%;
+  margin: auto;
+  font-size: 15px;
+}
+
+.form-item-description{
+  width: 90%;
+}

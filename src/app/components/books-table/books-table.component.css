@@ -1,0 +1,42 @@
+.tablewrapper{
+  height: 750px !important;
+}
+
+table {
+    width: 100%;
+    overflow-y: scroll;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .cell{
+    width: 20%;
+    text-align: left;
+    padding: 5px;
+  }
+
+
+  #idheader{
+    width: 5%;
+  }
+ 
+
+.tablewrapper{
+    margin-left: 20px;
+    max-width: 85%;
+    min-width: 80%;
+}
+
+.tablebutton{
+    margin-left: 5px;
+    margin-top: 15px;
+}
+
+
+
+
+ 
