@@ -1,10 +1,12 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { of, throwError } from 'rxjs';
+import { catchError, first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { RegisterComponent } from '../register/register.component';
 
 @Component({
@@ -20,13 +22,14 @@ export class LoginComponent implements OnInit {
   });
     
     hide = true;    
-    error = '';
+    loading = false;
 
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService,
-        public dialog: MatDialog
+        public dialog: MatDialog,
+        private snack: MatSnackBar
     ) { 
         // redirect to home if already logged in
         if (this.authenticationService.currentUserValue) { 
@@ -55,10 +58,15 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
+                    this.loading = true;
                     this.router.navigate(['/home/start']);
                 },
                 error => {
-                    this.error = error;
+                    this.snack.open("Incorrect username or password", "Dismiss", {
+                        duration: 7000,
+                        verticalPosition: 'bottom',
+                        horizontalPosition: 'center'
+                      });
                 });
     }
 
@@ -67,5 +75,5 @@ export class LoginComponent implements OnInit {
           width: '500px',
           height: '700px'
         });
-      }
+    }
 }

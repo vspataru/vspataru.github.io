@@ -47,6 +47,7 @@ import { ErrorInterceptor } from './interceptors/ErrorInterceptor';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { RegisterComponent } from './components/register/register.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

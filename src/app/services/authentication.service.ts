@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/User';
 
@@ -12,8 +13,10 @@ export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
   private apiUrl = environment.apiUrl;
+  error: any
 
-  constructor(private http: HttpClient) {
+
+  constructor(private http: HttpClient, private snack: MatSnackBar) {
       this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
       this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -41,4 +44,5 @@ export class AuthenticationService {
   register(payload: any){
     return this.http.post<any>(this.apiUrl+"/register",payload);
   }
-}  
+
+}
