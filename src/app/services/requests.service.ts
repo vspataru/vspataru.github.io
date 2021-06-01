@@ -21,7 +21,7 @@ export class RequestsService {
       headers = new HttpHeaders({'cache-response': 'true'});
     }
 
-    return this.http.get<Request[]>(this.baseUrl+"requests/"+userId,{headers});
+    return this.http.get<Request[]>(this.baseUrl+"/requests/"+userId,{headers});
 
   }
 

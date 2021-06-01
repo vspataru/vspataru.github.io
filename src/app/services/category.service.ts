@@ -20,6 +20,6 @@ export class CategoryService {
       headers = new HttpHeaders({'cache-response': 'true'});
     }
 
-    return this.http.get<Category[]>(this.baseUrl+"categories",{headers});
+    return this.http.get<Category[]>(this.baseUrl+"/categories",{headers});
   }
 }

@@ -20,6 +20,6 @@ export class AuthorService {
       headers = new HttpHeaders({'cache-response': 'true'});
     }
 
-    return this.http.get<Author[]>(this.baseUrl+"authors",{headers});
+    return this.http.get<Author[]>(this.baseUrl+"/authors",{headers});
   }
 }

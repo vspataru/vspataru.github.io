@@ -22,19 +22,19 @@ getAllBooks(cache = false){
     headers = new HttpHeaders({'cache-response': 'true'});
   }
 
-  return this.http.get<Book[]>(this.baseUrl + "books",{headers});
+  return this.http.get<Book[]>(this.baseUrl + "/books",{headers});
 }
 
 updateBook(book:Book) : Observable<Book>{
-  return this.http.put<Book>(this.baseUrl+ "books", book);
+  return this.http.put<Book>(this.baseUrl+ "/books", book);
 }
 
 addBook(book: Book) : Observable<Book>{
-  return this.http.post<Book>(this.baseUrl+"books",book);
+  return this.http.post<Book>(this.baseUrl+"/books",book);
 }
 
 deleteBook(bookID: any){
-  return this.http.delete(this.baseUrl+"books/"+bookID, {responseType: 'text'});
+  return this.http.delete(this.baseUrl+"/books/"+bookID, {responseType: 'text'});
 }
 
 }
