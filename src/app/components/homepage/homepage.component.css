@@ -4,7 +4,8 @@
     top:30px;
     bottom: 30px;
     width: 50%;
-    height: 550px;
+    height: 90%;
+    overflow: auto;
   }
   
   .content-card-borrowed{

@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { of, throwError } from 'rxjs';
-import { catchError, first } from 'rxjs/operators';
+import { catchError, delay, first } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { RegisterComponent } from '../register/register.component';
 
@@ -54,19 +54,17 @@ export class LoginComponent implements OnInit {
             return;
         }
 
+        this.loading = true;
+
         this.authenticationService.login(this.loginForm.get('username').value,this.loginForm.get('password').value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.loading = true;
+                    console.log(data.message);
                     this.router.navigate(['/home/start']);
                 },
                 error => {
-                    this.snack.open("Incorrect username or password", "Dismiss", {
-                        duration: 7000,
-                        verticalPosition: 'bottom',
-                        horizontalPosition: 'center'
-                      });
+                    this.loading = false;
                 });
     }
 
