@@ -2,49 +2,37 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-
-// Add the service we created in Step 1
-import { of } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { CacheService } from 'src/app/services/cache.service';
+import { filter, first, shareReplay } from 'rxjs/operators';
 
 @Injectable()
 export class CachingInterceptor implements HttpInterceptor {
+  public readonly store: Record<string, Observable<HttpEvent<any>>> = {};
 
-  constructor(private readonly cacheService: CacheService) {
-  }
+  constructor() {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Don't cache if it's not a GET request
-    if (req.method !== 'GET') {
+
+    // Don't cache if it's not cacheable
+    if ( req.method !== 'GET' ) {
       return next.handle(req);
     }
 
-    // delete cache if no header is set by service's method
-    if (!req.headers.get('cache-response')) {
-      if (this.cacheService.cacheMap.get(req.urlWithParams)) {
-        this.cacheService.cacheMap.delete(req.urlWithParams);
-      }
-
+    if(!req.headers.get('cache-response')){
       return next.handle(req);
     }
 
-    // Checked if there is cached data for this URI
-    const cachedResponse = this.cacheService.getFromCache(req);
-    if (cachedResponse) {
-      // In case of parallel requests to same URI,
-      // return the request already in progress
-      // otherwise return the last cached data
-      return (cachedResponse instanceof Observable) ? cachedResponse : of(cachedResponse.clone());
-    }
-
-    // If the request of going through for first time
-    // then let the request proceed and cache the response
-    return next.handle(req)
-        .pipe(tap(event => {
-            if (event instanceof HttpResponse) {
-                this.cacheService.addToCache(req, event);
-            }
-        }));
+    // if(req.headers.get("cached-response"))
+    // Check if observable is in cache, otherwise call next.handle
+    const cachedObservable = this.store[req.urlWithParams] ||
+      ( this.store[req.urlWithParams] = next.handle(req).pipe(
+          // Filter since we are interested in caching the response only, not progress events
+          filter((res) => res instanceof HttpResponse ),
+          // Share replay will cache the response
+          shareReplay(1),
+      ));
+    // pipe first() to cause the observable to complete after it emits the response
+    // This mimics the behaviour of Observables returned by Angular's httpClient.get() 
+    // And also makes toPromise work since toPromise will wait until the observable completes.
+    return cachedObservable.pipe(first());
   }
 }

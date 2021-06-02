@@ -47,7 +47,7 @@ export class UserbookstableComponent implements AfterViewInit {
   }
 
   getAllBooks() : void{
-    this.bookService.getAllBooks().subscribe(data =>{
+    this.bookService.getAllBooks(true).subscribe(data =>{
     this.BOOKS_DATA = data;
     this.dataSource = new MatTableDataSource(this.BOOKS_DATA);
     this.dataSource.paginator = this.paginator;

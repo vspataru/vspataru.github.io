@@ -46,6 +46,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ErrorInterceptor } from './interceptors/ErrorInterceptor';
 import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { RegisterComponent } from './components/register/register.component';
+import { RequestAdministrationComponent } from './components/request-administration/request-administration.component';
+import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 
 
 @NgModule({
@@ -68,6 +70,8 @@ import { RegisterComponent } from './components/register/register.component';
     ShoppingcartComponent,
     AnnouncementsComponent,
     RegisterComponent,
+    RequestAdministrationComponent,
+    UserAdministrationComponent,
   ],
   entryComponents:[
     BookEditFormComponent],

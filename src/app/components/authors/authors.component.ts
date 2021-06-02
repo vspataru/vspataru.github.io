@@ -2,11 +2,10 @@ import { AfterViewInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Author } from 'src/app/models/Author';
-import { Book } from 'src/app/models/Book';
-import { Request } from 'src/app/models/Request';
 import { AuthorService } from 'src/app/services/author.service';
 import { SnackBarService } from 'src/app/services/snack-bar.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -26,12 +25,12 @@ export class AuthorsComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private authorService: AuthorService, public dialog: MatDialog, private snackBar: SnackBarService) { 
+  constructor(private authorService: AuthorService, public dialog: MatDialog, private snackBar: MatSnackBar) { 
     
   }
 
   ngAfterViewInit(): void {
-    this.getAllBooks();
+    this.getAllAuthors();
   }
 
   applyFilter(event: Event) {
@@ -43,7 +42,7 @@ export class AuthorsComponent implements AfterViewInit {
     }
   }
 
-  getAllBooks() : void{
+  getAllAuthors() : void{
     this.authorService.getAllAuthors().subscribe(data =>{
     this.AUTHOR_DATA = data;
     this.dataSource = new MatTableDataSource(this.AUTHOR_DATA);
@@ -52,12 +51,12 @@ export class AuthorsComponent implements AfterViewInit {
   })
   }
 
-  openRequestDialog(book:Book) : void{
+  openRequestDialog(author:Author) : void{
     let dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '300px',
       height: '150px',
       data: {
-        message: "Are you sure you want to create a request for " + book.title +"?",
+        message: "Are you sure you want to delete " + author.firstName + " " + author.lastName +" and all books asociated?",
         buttonText:{
           ok:'Yes',
           cancel:'Cancel'
@@ -67,19 +66,18 @@ export class AuthorsComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
 
-      let newRequest : Request = new Request();
-      newRequest.active = true;
-      newRequest.requestedDate = Date.now();
-      newRequest.requestedBooks = [book];
+      if(confirmed == true){
+        this.authorService.deleteAuthor(author.authorId).subscribe(data => 
+          {
+            this.snackBar.open("test", "Dismiss", {
+              duration: 5000,
+              verticalPosition: 'bottom',
+              horizontalPosition: 'center'
+            });
+            this.getAllAuthors();
 
-    
-      // if(confirmed == true){
-      //   this.requestsService.createRequest(newRequest).subscribe(data => 
-      //     {
-      //       this.snackBar.showSnackBar("The request has been created.")
-      //     })
-      // }
-      
+          })
+      }
     });
   }
 

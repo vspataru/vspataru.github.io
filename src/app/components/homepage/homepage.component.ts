@@ -26,13 +26,12 @@ export class HomepageComponent implements OnInit {
   }
 
   getApprovedRequests(){
-    this.requestService.getAllActiveRequests(this.currentUser.userId).subscribe(data =>{
+    this.requestService.getAllActiveRequests(this.currentUser.userId, true).subscribe(data =>{
       this.getBooks(data);
     })
   }
 
   getBooks(input: Request[]){
-    console.log(input);
     input.forEach(element => {
       element.requestedBooks.forEach(element => {
         this.borrowedBooks.push(element);

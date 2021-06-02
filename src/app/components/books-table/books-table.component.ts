@@ -36,7 +36,7 @@ export class BooksTableComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getAllBooks();
+    this.getAllBooks(true);
     this.getAllAuthors();
   }
 
@@ -73,8 +73,8 @@ export class BooksTableComponent implements OnInit {
   }
 
 
-  getAllBooks() : void{
-    this.bookService.getAllBooks().subscribe(data =>{
+  getAllBooks(cached = false) : void{
+    this.bookService.getAllBooks(cached).subscribe(data =>{
     this.BOOKS_DATA = data;
     this.dataSource = new MatTableDataSource(this.BOOKS_DATA);
     this.dataSource.paginator = this.paginator;
@@ -83,7 +83,7 @@ export class BooksTableComponent implements OnInit {
   }
 
   getAllAuthors() : void{
-    this.authorService.getAllAuthors().subscribe(data => this.AUTHOR_DATA = data);
+    this.authorService.getAllAuthors(true).subscribe(data => this.AUTHOR_DATA = data);
   }
 
 
