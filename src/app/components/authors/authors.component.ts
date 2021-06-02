@@ -30,7 +30,7 @@ export class AuthorsComponent implements AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.getAllAuthors();
+    this.getAllAuthors(true);
   }
 
   applyFilter(event: Event) {
@@ -42,8 +42,8 @@ export class AuthorsComponent implements AfterViewInit {
     }
   }
 
-  getAllAuthors() : void{
-    this.authorService.getAllAuthors().subscribe(data =>{
+  getAllAuthors(cached = false) : void{
+    this.authorService.getAllAuthors(cached).subscribe(data =>{
     this.AUTHOR_DATA = data;
     this.dataSource = new MatTableDataSource(this.AUTHOR_DATA);
     this.dataSource.paginator = this.paginator;
