@@ -60,7 +60,7 @@ export class BooksComponent implements OnInit {
   }
 
   getAllAuthors() : void{
-    this.authorService.getAllAuthors().subscribe(data => this.AUTHOR_DATA = data);
+    this.authorService.getAllAuthors(true).subscribe(data => this.AUTHOR_DATA = data);
   }
 
 }

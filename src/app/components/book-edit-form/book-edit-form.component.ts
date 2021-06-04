@@ -63,11 +63,11 @@ export class BookEditFormComponent implements OnInit {
   }
 
   getAuthorsForChecklist(){
-    this.authorService.getAllAuthors().subscribe(data => this.authors = data);
+    this.authorService.getAllAuthors(true).subscribe(data => this.authors = data);
   }
 
   getCategoriesForChecklist(){
-    this.categoryService.getAllCategories().subscribe(data => this.categories = data);
+    this.categoryService.getAllCategories(true).subscribe(data => this.categories = data);
   }
 
   onSaveClick(){
