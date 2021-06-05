@@ -12,7 +12,7 @@ export class AuthorService {
 
   constructor(private http: HttpClient) { }
 
-  getAllAuthors(cache = false){
+  getAllAuthors(cache){
 
     let headers: HttpHeaders;
 
@@ -25,5 +25,13 @@ export class AuthorService {
 
   deleteAuthor(bookId){
     return this.http.delete(this.baseUrl+"/authors/"+bookId);
+  }
+
+  updateAuthor(author: Author){
+    return this.http.put(this.baseUrl+"/authors", author);
+  }
+
+  createAuthor(author: Author){
+    return this.http.post<Author>(this.baseUrl+"/authors",author);
   }
 }

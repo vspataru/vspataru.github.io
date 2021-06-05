@@ -1,4 +1,4 @@
-export interface Author {
+export class Author {
     authorId: string;
     firstName: string;
     lastName: string;

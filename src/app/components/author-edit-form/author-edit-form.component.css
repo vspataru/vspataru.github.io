@@ -1,0 +1,9 @@
+.form-item{
+    width: 90%;
+}
+
+.buttonwrapper{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}

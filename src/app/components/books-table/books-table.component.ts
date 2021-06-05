@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -20,7 +20,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   templateUrl: './books-table.component.html',
   styleUrls: ['./books-table.component.css']
 })
-export class BooksTableComponent implements OnInit {
+export class BooksTableComponent implements AfterViewInit {
   
   BOOKS_DATA: Book[];
   AUTHOR_DATA: Author[];
@@ -35,7 +35,7 @@ export class BooksTableComponent implements OnInit {
   constructor(public dialog: MatDialog, private bookService: BookService, private authorService : AuthorService, private snackBar: SnackBarService) {
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.getAllBooks(true);
     this.getAllAuthors();
   }

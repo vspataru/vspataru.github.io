@@ -1,8 +1,10 @@
 export class User {
     userId: number;
-    userName: string;
+    username: string;
     firstName: string;
     lastName: string;
     jwt?: string;
     role: string;
+    emailAddress: string;
+    enabled: boolean;
 }

@@ -1,1 +1,120 @@
-<p>user-administration works!</p>
+<div class="mainwrapper">
+
+<div class="tablewrapper">
+    <mat-form-field>
+        <mat-label>Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Moby Dick" #input>
+      </mat-form-field>
+      
+      <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort style="height: 900px;">
+      
+          <!-- AuthorId Column -->
+          <ng-container matColumnDef="userId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+            <td mat-cell *matCellDef="let row">{{row.userId}}</td>
+          </ng-container>
+          
+          <!-- firstName Column -->
+          <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Username</th>
+            <td mat-cell *matCellDef="let row">{{row.username}}</td>
+          </ng-container>
+    
+            <!-- firstName Column -->
+                <ng-container matColumnDef="firstName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>First Name</th>
+                    <td mat-cell *matCellDef="let row">{{row.firstName}}</td>
+                </ng-container>     
+
+            <!-- lastName Column -->
+                <ng-container matColumnDef="lastName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</th>
+                    <td mat-cell *matCellDef="let row">{{row.lastName}}</td>
+                </ng-container>
+
+            <!-- email Column -->
+            <ng-container matColumnDef="emailAddress">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Email</th>
+                <td mat-cell *matCellDef="let row">{{row.emailAddress}}</td>
+            </ng-container>                      
+
+            <!-- role Column -->
+            <ng-container matColumnDef="role">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Role</th>
+                <td mat-cell *matCellDef="let row">{{row.role}}</td>
+            </ng-container>
+            
+            <!-- enabled Column -->
+            <ng-container matColumnDef="enabled">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Enabled</th>
+                <td mat-cell *matCellDef="let row" [ngStyle]="{'color':row.enabled? 'green' : 'red'}">{{row.enabled}}</td>
+            </ng-container> 
+            
+            <!-- Action Column -->
+            <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-button (click)="openEditDialog(row)" ><mat-icon color="primary">edit</mat-icon></button>
+                        <!-- <button mat-button (click)="openDeleteDialog(row)" ><mat-icon color="primary">delete</mat-icon></button> -->
+                    </td>
+            </ng-container>      
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+          </tr>
+        </table>
+    <mat-paginator [pageSize]=10></mat-paginator>
+</div>
+
+<mat-card class="newUserForm">
+    <mat-card-title>
+        Add new user
+    </mat-card-title>
+    <mat-card-content>
+        <form #userForm="ngForm" class="form" novalidate (ngSubmit)="addNewUser()">
+            <mat-form-field class="form-item">
+            <mat-label>Username</mat-label>
+            <input type="text" [(ngModel)]="newUser.username" name="username" matInput value={{user.username}}>
+            </mat-form-field>
+        
+            <mat-form-field class="form-item">
+                <mat-label>First Name</mat-label>
+                <input type="text" [(ngModel)]="newUser.firstName" name="firstName" matInput value={{user.firstName}}>
+            </mat-form-field> 
+        
+            <mat-form-field class="form-item">
+                <mat-label>Last Name</mat-label>
+                <input type="text" [(ngModel)]="newUser.lastName" name="lastName" matInput value={{user.lastName}}>
+            </mat-form-field>
+            
+            <mat-form-field class="form-item">
+                <mat-label>Email</mat-label>
+                <input type="text" [(ngModel)]="newUser.emailAddress" name="emailAddress" matInput value={{user.emailAddress}}>
+            </mat-form-field>
+        
+            <mat-form-field class="form-item">
+                <mat-label>Role</mat-label>
+                <mat-select [(value)] = "user.role">
+                <mat-option value="ADMIN">ADMIN</mat-option>
+                <mat-option value="USER">USER</mat-option>
+                </mat-select>
+            </mat-form-field>
+        
+            <div class="checkbox filed">
+            <mat-label style="font-weight: bold;">Enabled</mat-label>
+            <mat-checkbox style="margin-left: 15px;" [(ngModel)]="user.enabled" name="enabled"></mat-checkbox> 
+            </div>
+        
+            <mat-dialog-actions class ="buttonwrapper">
+                <button type="submit" class="buttons" mat-raised-button color="primary">Save</button>   
+                <button class="buttons"  mat-raised-button mat-dialog-close color="accent" (click)="resetForm(userForm)">Reset Form</button>
+            </mat-dialog-actions>
+        </form>
+    </mat-card-content>
+</mat-card>
+</div>

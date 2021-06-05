@@ -1,5 +1,6 @@
 import { AfterViewInit } from '@angular/core';
 import { Component, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,7 +8,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Author } from 'src/app/models/Author';
 import { AuthorService } from 'src/app/services/author.service';
-import { SnackBarService } from 'src/app/services/snack-bar.service';
+import { AuthorEditFormComponent } from '../author-edit-form/author-edit-form.component';
+import { AuthorsTableComponent } from '../authors-table/authors-table.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
@@ -20,10 +22,14 @@ export class AuthorsComponent implements AfterViewInit {
   AUTHOR_DATA: Author[];
   displayedColumns: string[] = [ 'authorId', 'firstName' ,'lastName','actions'];
   dataSource: MatTableDataSource<Author>;
+  author: Author = new Author();
+
+  firstNameFormControl;
+
+  lastNameFormControl;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
 
   constructor(private authorService: AuthorService, public dialog: MatDialog, private snackBar: MatSnackBar) { 
     
@@ -69,19 +75,39 @@ export class AuthorsComponent implements AfterViewInit {
       if(confirmed == true){
         this.authorService.deleteAuthor(author.authorId).subscribe(data => 
           {
-            this.snackBar.open("test", "Dismiss", {
+            this.snackBar.open("Author deleted", "Dismiss", {
               duration: 5000,
               verticalPosition: 'bottom',
               horizontalPosition: 'center'
             });
-            this.getAllAuthors();
-
           })
+
+          var index = this.AUTHOR_DATA.indexOf(author);
+          this.AUTHOR_DATA.splice(index,1);
+          this.dataSource._updateChangeSubscription()
       }
     });
   }
 
-  onSubmit(){
-    
+  onSubmit(form: NgForm){
+    this.authorService.createAuthor(this.author).subscribe(data => {
+      console.log(data);
+      this.AUTHOR_DATA.push(data);
+      this.snackBar.open("Author created", "Dismiss", {
+        duration: 5000,
+        verticalPosition: 'bottom',
+        horizontalPosition: 'center'
+      });
+    })
+    form.reset();
+  }
+
+  openEditDialog(author: Author){
+    let dialogRef = this.dialog.open(AuthorEditFormComponent, {
+      width: '400px',
+      height: '270px',
+      data: author
+      },
+    );
   }
 }

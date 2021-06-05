@@ -1,0 +1,41 @@
+<h3 mat-dialog-title>Editing user: {{user.username}}</h3>
+
+<form #authorForm="ngForm" class="form" novalidate (ngSubmit)="onSubmit()">
+    <mat-form-field class="form-item">
+      <mat-label>Username</mat-label>
+      <input type="text" [(ngModel)]="user.username" name="username" matInput value={{user.username}}>
+    </mat-form-field>
+
+    <mat-form-field class="form-item">
+        <mat-label>First Name</mat-label>
+        <input type="text" [(ngModel)]="user.firstName" name="firstName" matInput value={{user.firstName}}>
+      </mat-form-field> 
+
+    <mat-form-field class="form-item">
+        <mat-label>Last Name</mat-label>
+        <input type="text" [(ngModel)]="user.lastName" name="lastName" matInput value={{user.lastName}}>
+    </mat-form-field>
+    
+    <mat-form-field class="form-item">
+        <mat-label>Email</mat-label>
+        <input type="text" [(ngModel)]="user.emailAddress" name="emailAddress" matInput value={{user.emailAddress}}>
+    </mat-form-field>
+
+    <mat-form-field class="form-item">
+        <mat-label>Role</mat-label>
+        <mat-select [(value)] = "user.role">
+          <mat-option value="ADMIN">ADMIN</mat-option>
+          <mat-option value="USER">USER</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="checkbox filed">
+    <mat-label style="font-weight: bold;">Enabled</mat-label>
+    <mat-checkbox style="margin-left: 15px;" [(ngModel)]="user.enabled" name="enabled"></mat-checkbox> 
+    </div>
+
+    <mat-dialog-actions class ="buttonwrapper">
+        <button type="submit" class="buttons" mat-raised-button color="primary">Save</button>   
+        <button class="buttons"  mat-raised-button mat-dialog-close color="accent">Cancel</button>
+    </mat-dialog-actions>
+</form>

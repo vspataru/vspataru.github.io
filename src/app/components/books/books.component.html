@@ -17,6 +17,11 @@
                   <mat-option *ngFor="let author of AUTHOR_DATA" [value]="author.authorId">{{author.firstName + " " + author.lastName}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              
+            <mat-form-field class="form-item">
+                <mat-label>Stock</mat-label>
+                <input type="number" placeholder="Stock" matInput [(ngModel)]="bookToCreate.stock" name="stock">
+            </mat-form-field>  
 
             <mat-form-field class="form-item-description">
                 <mat-label>Description</mat-label>

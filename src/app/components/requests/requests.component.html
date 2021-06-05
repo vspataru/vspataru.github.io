@@ -22,7 +22,9 @@
                             {{book.title}} 
                         </td>
                         <td style="width: 120px;">
-                            {{request.approved}}
+                            <span *ngIf="request.approved == null">Pending approval</span>
+                            <span *ngIf="request.approved == true" style="color: green; font-weight: bold;">Approved</span>
+                            <span *ngIf="request.approved == false" style="color: red; font-weight: bold;">Rejected</span>
                         </td>
                         <td style="width: 120px;">
                             {{request.approvedDate}}
@@ -62,7 +64,9 @@
                                 {{book.title}} 
                             </td>
                             <td style="width: 120px;">
-                                {{request.approved}}
+                                <span *ngIf="request.approved == null">Pending approval</span>
+                                <span *ngIf="request.approved == true">Approved</span>
+                                <span *ngIf="request.approved == false">Rejected</span>
                             </td>
                             <td style="width: 120px;">
                                 {{request.approvedDate}}

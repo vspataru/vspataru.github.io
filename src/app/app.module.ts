@@ -23,6 +23,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
@@ -34,7 +36,7 @@ import { BooksTableComponent } from './components/books-table/books-table.compon
 import { BookEditFormComponent } from './components/book-edit-form/book-edit-form.component';
 import { AuthorsTableComponent } from './components/authors-table/authors-table.component';
 import { CacheService } from './services/cache.service';
-import { CachingInterceptor } from 'src/CacheInterceptor';
+import { CachingInterceptor } from 'src/app/interceptors/CacheInterceptor';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { UserbookstableComponent } from './components/userbookstable/userbookstable.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -48,6 +50,8 @@ import { JwtInterceptor } from './interceptors/JwtInterceptor';
 import { RegisterComponent } from './components/register/register.component';
 import { RequestAdministrationComponent } from './components/request-administration/request-administration.component';
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
+import { AuthorEditFormComponent } from './components/author-edit-form/author-edit-form.component';
+import { UserEditFormComponent } from './components/user-edit-form/user-edit-form.component';
 
 
 @NgModule({
@@ -72,6 +76,8 @@ import { UserAdministrationComponent } from './components/user-administration/us
     RegisterComponent,
     RequestAdministrationComponent,
     UserAdministrationComponent,
+    AuthorEditFormComponent,
+    UserEditFormComponent,
   ],
   entryComponents:[
     BookEditFormComponent],
@@ -99,7 +105,9 @@ import { UserAdministrationComponent } from './components/user-administration/us
     MatSidenavModule,
     MatDividerModule,
     MatSortModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatRadioModule,
+    MatCheckboxModule
   ],
   providers: [
     CacheService,

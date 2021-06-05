@@ -1,0 +1,45 @@
+table {
+    width: 100%;
+    height: 600px !important;
+  }
+
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    height: 30px;
+  }
+  tr{
+      padding-left: 5px;
+  }
+
+  .tablewrapper{
+      width: 60%;
+      margin-left: 10px;
+  }
+
+  .formwrapper{
+      position: absolute;
+      top: 50px;
+      right: 30px;
+      width: 40%;
+  }
+ 
+ .newUserForm{
+    position: absolute;
+    right: 20px;
+    top: 55px;
+    width: 30%;
+  } 
+
+  .buttonwrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-top: 10px;
+  }
+
+
+ 
