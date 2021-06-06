@@ -1,0 +1,26 @@
+.table-container{
+    width: 70%;
+    height: 700px !important;
+    overflow: auto;
+}
+.button-containers{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.main-table{
+    width: 100%;
+}
+
+.card-total{
+    text-align: center;
+    width: 10%;
+    position: absolute;
+    right: 100px;
+    top: 55px;
+}
+
+button:disabled {
+    background-color: rgb(177, 177, 177);
+ }

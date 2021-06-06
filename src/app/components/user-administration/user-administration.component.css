@@ -25,13 +25,14 @@ table {
       top: 50px;
       right: 30px;
       width: 40%;
-  }
+    }
  
  .newUserForm{
     position: absolute;
     right: 20px;
     top: 55px;
     width: 30%;
+    box-shadow: 0px 5px 5px 0px rgba(207, 207, 207, 0.719);
   } 
 
   .buttonwrapper{

@@ -24,18 +24,15 @@ export class RequestsComponent implements AfterViewInit {
     
   }
 
-
-  //to add implementation of userID 
   getAllRequests(cache = false) : void{
-    this.requestService.getAllRequests(this.currentUser.userId,cache).subscribe(data =>{
+    this.requestService.getAllRequestsByUser(this.currentUser.userId,cache).subscribe(data =>{
     this.REQ_DATA_HISTORY = data;
-    this.REQ_DATA_ACTIVE = this.REQ_DATA_HISTORY.filter(item => item.active == true);
+    this.REQ_DATA_ACTIVE = this.REQ_DATA_HISTORY.filter(item => item.active == true && item.approved == null);
   })
   }
 
   cancelRequest(requestId: any){
     this.requestService.cancelRequest(requestId).subscribe(data =>{
-      console.log(data);
     })
 
     var index;

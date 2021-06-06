@@ -22,6 +22,7 @@ export class UserAdministrationComponent implements AfterViewInit {
   dataSource: MatTableDataSource<User>;
   user: User = new User();
   newUser: User = new User();
+  initialPassword: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -92,12 +93,21 @@ export class UserAdministrationComponent implements AfterViewInit {
   // }
 
   addNewUser(){
-    
+
+    this.initialPassword = this.userService.generatePassword();
+
+    this.newUser.password = this.initialPassword;
+
+    this.userService.createUser(this.newUser).subscribe(data => {
+      this.USER_DATA.push(data);
+      this.dataSource._updateChangeSubscription();
+    })
   }
 
   resetForm(userForm: NgForm){
     userForm.resetForm();
   }
+
 
 
 }

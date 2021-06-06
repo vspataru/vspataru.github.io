@@ -52,6 +52,7 @@ import { RequestAdministrationComponent } from './components/request-administrat
 import { UserAdministrationComponent } from './components/user-administration/user-administration.component';
 import { AuthorEditFormComponent } from './components/author-edit-form/author-edit-form.component';
 import { UserEditFormComponent } from './components/user-edit-form/user-edit-form.component';
+import {MatExpansionModule} from '@angular/material/expansion'
 
 
 @NgModule({
@@ -107,7 +108,8 @@ import { UserEditFormComponent } from './components/user-edit-form/user-edit-for
     MatSortModule,
     MatTooltipModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [
     CacheService,

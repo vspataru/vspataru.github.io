@@ -7,4 +7,5 @@ export class User {
     role: string;
     emailAddress: string;
     enabled: boolean;
+    password?:string;
 }

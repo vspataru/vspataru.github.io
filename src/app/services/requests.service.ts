@@ -13,8 +13,12 @@ export class RequestsService {
 
   constructor(private http: HttpClient) { }
 
+  getAllRequests(){
+    return this.http.get<Request[]>(this.baseUrl+"/requests");
+  }
 
-  getAllRequests(userId:any,cache = false){
+
+  getAllRequestsByUser(userId:any,cache = false){
     let headers: HttpHeaders;
 
     
@@ -26,7 +30,7 @@ export class RequestsService {
 
   }
 
-  getAllActiveRequests(userId:any,cache = false){
+  getAllActiveRequestsByUser(userId:any,cache = false){
     let headers: HttpHeaders;
 
     if(cache){
@@ -37,6 +41,10 @@ export class RequestsService {
 
   }
 
+  getAllActiveRequests(){
+    return this.http.get<Request[]>(this.baseUrl+"/requests/active");
+  }
+
   createRequest(request:Request){
 
     return this.http.post<Request>(this.baseUrl+"/requests/add",request);
@@ -44,6 +52,18 @@ export class RequestsService {
 
   cancelRequest(requestId: any){
     return this.http.put(this.baseUrl+"/requests/cancel/"+requestId,null);  
+  }
+
+  approveRequest(requestId: any){
+    return this.http.put(this.baseUrl+"/requests/approve/"+requestId,null,{responseType:'text'});
+  }
+
+  rejectRequest(requestId: any){
+    return this.http.put(this.baseUrl+"/requests/reject/"+requestId,null,{responseType:'text'});
+  }
+
+  reactivateRequest(requestId: any){
+    return this.http.put(this.baseUrl+"/requests/reactivate/"+requestId,null,{responseType:'text'})
   }
 
 }

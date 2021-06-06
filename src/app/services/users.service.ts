@@ -24,4 +24,19 @@ export class UsersService {
   deleteUser(userId){
     return this.http.delete(this.baseUrl+"/users/"+userId);
   }
+
+  createUser(user: User){
+    return this.http.post<User>(this.baseUrl+"/users/create",user);
+  }
+
+  generatePassword() {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+}
+
 }

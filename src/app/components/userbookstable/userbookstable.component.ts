@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -33,7 +33,7 @@ export class UserbookstableComponent implements AfterViewInit {
       this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.getAllBooks();
   }
 

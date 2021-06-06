@@ -1,4 +1,101 @@
-<mat-tab-group class="admintabs">
-    <mat-tab label="Active requests"></mat-tab>
-    <mat-tab label="History"></mat-tab>
+<mat-tab-group class="admintabs" style="height: 780px!important;">
+    <mat-tab label="Active requests">
+        <div class="table-container">
+        <table class="main-table">
+            <tr *ngFor="let request of ACTIVE_REQUESTS">
+                <td style="padding: 10px;">
+                    <mat-accordion class="example-headers-align" multi>
+                        <mat-expansion-panel  (opened)="panelOpenState = true"
+                        (closed)="panelOpenState = false">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                Request ID: {{request.requestId}}
+                              </mat-panel-title>
+                              <mat-panel-description>
+                                  <div *ngIf="!panelOpenState">Requested date: {{request.requestedDate}}</div>
+                              </mat-panel-description>
+                            </mat-expansion-panel-header>
+                            <table>
+                                <th>Requested date</th>
+                                <th>Requested by</th>
+                                <th>Title</th>
+                                <th>Active</th>
+                                <th></th>
+                                <tr>
+                                    <td style="width: 120px;">
+                                        {{request.requestedDate}}
+                                    </td>
+                                    <td style="width: 160px;">
+                                        {{request.requester.firstName}} {{request.requester.lastName}}
+                                    </td>
+                                    <td style="width: 400px;" *ngFor="let book of request.requestedBooks">
+                                        {{book.title}} 
+                                    </td>
+                                    <td style="width: 120px;"> 
+                                        {{request.active}}
+                                    </td>
+                                    <td class="button-containers" style="width: 200px;">
+                                        <button mat-raised-button (click)="approveRequest(request.requestId)" style="background-color: green; color: white;">APPROVE</button>
+                                        <button mat-raised-button (click)="rejectRequest(request.requestId)" style="background-color: red; color: white;">REJECT</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </td>
+            </tr>
+        </table>
+    </div>
+    </mat-tab>
+    <mat-tab label="History">
+        <div class="table-container">
+            <table class="main-table">
+                <tr *ngFor="let request of ALL_REQUESTS">
+                    <td style="padding: 10px;">
+                            <mat-expansion-panel  (opened)="panelOpenState = true"
+                            (closed)="panelOpenState = false">
+                                <mat-expansion-panel-header>
+                                  <mat-panel-title>
+                                    Request ID: {{request.requestId}}
+                                  </mat-panel-title>
+                                  <mat-panel-description>
+                                      <div *ngIf="!panelOpenState">Requested date: {{request.requestedDate}}</div>
+                                  </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <table>
+                                    <th>Requested date</th>
+                                    <th>Requested by</th>
+                                    <th>Title</th>
+                                    <th>Approval state</th>
+                                    <th>Active</th>
+                                    <th></th>
+                                    <tr>
+                                        <td style="width: 120px;">
+                                            {{request.requestedDate}}
+                                        </td>
+                                        <td style="width: 160px;">
+                                            {{request.requester.firstName}} {{request.requester.lastName}}
+                                        </td>
+                                        <td style="width: 400px;" *ngFor="let book of request.requestedBooks">
+                                            {{book.title}} 
+                                        </td>
+                                        <td style="width: 120px;">
+                                            <span *ngIf="request.approved == null">Pending approval</span>
+                                            <span *ngIf="request.approved == true" style="color: green; font-weight: bold;">Approved</span>
+                                            <span *ngIf="request.approved == false" style="color: red; font-weight: bold;">Rejected</span>
+                                        </td>
+                                        <td style="width: 120px;"> 
+                                            {{request.active}}
+                                        </td>
+                                        <td class="button-containers" style="width: 200px;">
+                                            <button mat-raised-button [disabled]="!request.active == false" (click) = "reactivateRequest(request.requestId)"style="background-color: green; color: white;">REACTIVATE</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </mat-expansion-panel>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </mat-tab>
 </mat-tab-group>

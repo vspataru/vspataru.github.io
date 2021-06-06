@@ -9,7 +9,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Author } from 'src/app/models/Author';
 import { AuthorService } from 'src/app/services/author.service';
 import { AuthorEditFormComponent } from '../author-edit-form/author-edit-form.component';
-import { AuthorsTableComponent } from '../authors-table/authors-table.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({

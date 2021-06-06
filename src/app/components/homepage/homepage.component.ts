@@ -26,7 +26,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getApprovedRequests(){
-    this.requestService.getAllActiveRequests(this.currentUser.userId, true).subscribe(data =>{
+    this.requestService.getAllActiveRequestsByUser(this.currentUser.userId, true).subscribe(data =>{
       this.getBooks(data);
     })
   }

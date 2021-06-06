@@ -99,7 +99,7 @@
         
             <mat-form-field class="form-item">
                 <mat-label>Role</mat-label>
-                <mat-select [(value)] = "user.role">
+                <mat-select [(ngModel)]="newUser.role" name="role">
                 <mat-option value="ADMIN">ADMIN</mat-option>
                 <mat-option value="USER">USER</mat-option>
                 </mat-select>
@@ -107,7 +107,7 @@
         
             <div class="checkbox filed">
             <mat-label style="font-weight: bold;">Enabled</mat-label>
-            <mat-checkbox style="margin-left: 15px;" [(ngModel)]="user.enabled" name="enabled"></mat-checkbox> 
+            <mat-checkbox style="margin-left: 15px;" [(ngModel)]="newUser.enabled" name="enabled"></mat-checkbox> 
             </div>
         
             <mat-dialog-actions class ="buttonwrapper">
@@ -115,6 +115,10 @@
                 <button class="buttons"  mat-raised-button mat-dialog-close color="accent" (click)="resetForm(userForm)">Reset Form</button>
             </mat-dialog-actions>
         </form>
+            <div *ngIf="initialPassword" style="margin-top: 10px;">
+                <mat-label>Generated password: </mat-label>
+                <span>{{initialPassword}}</span>
+            </div>
     </mat-card-content>
 </mat-card>
 </div>
