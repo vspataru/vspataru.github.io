@@ -15,6 +15,13 @@ table {
       padding-left: 5px;
   }
 
+  .title{
+    color: black;
+    font-size: 25px;
+    display: flex; 
+    align-content: center; 
+    margin-bottom: 0px !important;
+  }
 
  
 

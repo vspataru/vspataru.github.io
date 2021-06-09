@@ -6,23 +6,25 @@
       <input type="text" [(ngModel)]="book.title" name="title" matInput value={{book.title}}>
     </mat-form-field>
 
-    <mat-form-field appearance="fill">
+    <mat-form-field  class="form-item">
         <mat-label>Authors</mat-label>
         <mat-select [formControl]="authorsFormControl" multiple>
           <mat-option *ngFor="let author of authors" [value]="author.authorId">{{author.firstName + " " + author.lastName}}</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <!-- <mat-form-field appearance="fill">
-        <mat-label>Categories</mat-label>
-        <mat-select [formControl]="categoriesFormControl" multiple>
-          <mat-option *ngFor="let category of categories" [value]="category.categoryId">{{category.name}}</mat-option>
+      <mat-form-field class="form-item">
+        <mat-label>Category</mat-label>
+        <mat-select [formControl]="categoriesFormControl" [(value)]="book.category" name="category">
+          <mat-option  *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
         </mat-select>
-      </mat-form-field> -->
+      </mat-form-field>
 
     <mat-form-field class="form-item">
         <mat-label>Description</mat-label>
-        <textarea matInput [(ngModel)]="book.description" name="description" value={{book.description}}></textarea>
+        <textarea matInput [(ngModel)]="book.description" cdkTextareaAutosize
+        cdkAutosizeMinRows="5"
+        cdkAutosizeMaxRows="10" name="description" value={{book.description}}></textarea>
     </mat-form-field>    
 
     <mat-dialog-actions class ="buttonwrapper">

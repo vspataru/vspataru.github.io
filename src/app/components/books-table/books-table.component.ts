@@ -68,6 +68,7 @@ export class BooksTableComponent implements AfterViewInit {
 
       if(confirmed){
         this.getAllBooks();
+        this.dataSource._updateChangeSubscription();
       }
     })
   }

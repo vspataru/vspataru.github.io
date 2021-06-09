@@ -40,9 +40,6 @@ export class BookEditFormComponent implements OnInit {
     //selects the id's of the authors that will be preselected on the dropdownlist
     this.selectedAuthors = this.book.authors.map(a => a.authorId);
     this.authorsFormControl = new FormControl(this.selectedAuthors);
-
-    // this.selectedCategories = this.book.categories.map(c => c.categoryId);
-    // this.categoriesFormControl = new FormControl(this.selectedCategories);
   }
 
   ngOnInit(): void {
@@ -56,8 +53,9 @@ export class BookEditFormComponent implements OnInit {
     this.book.authors = form.value.authors;
     this.book.description = form.value.description;
     this.book.authors = this.authors.filter(a => this.authorsFormControl.value.includes(a.authorId));  
-    console.log(this.book.bookId);
+    // this.book.category = this.categories.find(a => this.categoriesFormControl.value == a.categoryId);
     let response;
+    console.log(this.book);
     this.bookService.updateBook(this.book).subscribe(data => response = data);
     console.log(response);
   }

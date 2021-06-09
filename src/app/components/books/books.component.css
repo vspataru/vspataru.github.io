@@ -21,11 +21,11 @@
 
 
 .form-item,.form-item-description{
-  width: 90%;
+  width: 100%;
   margin: auto;
   font-size: 15px;
 }
 
 .form-item-description{
-  width: 90%;
+  width: 100%;
 }

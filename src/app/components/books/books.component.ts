@@ -5,6 +5,7 @@ import { Author } from 'src/app/models/Author';
 import { Book } from 'src/app/models/Book';
 import { AuthorService } from 'src/app/services/author.service';
 import { BookService } from 'src/app/services/book.service';
+import { BookEditFormComponent } from '../book-edit-form/book-edit-form.component';
 import { BooksTableComponent } from '../books-table/books-table.component';
 
 
@@ -30,8 +31,6 @@ export class BooksComponent implements OnInit {
 
 
   }
-
-
 
   ngOnInit(): void {
     this.getAllAuthors();
