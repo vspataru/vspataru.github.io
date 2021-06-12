@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import announcements from 'src/app/data/announcements.json'
+import { User } from 'src/app/models/User';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-announcements',
@@ -8,35 +11,82 @@ import { Component, OnInit } from '@angular/core';
 
 export class AnnouncementsComponent implements OnInit {
 
-  announcements:Annoucement[] = [{title: "Announcement 1 test",content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"}, {title:"Announcement 2", content:"Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Phasellus molestie ex at convallis luctus. Curabitur sit amet nunc eget justo scelerisque eleifend id a nibh."}]; 
+  announcementArray:Announcement[];
   currentIndex: number = 0;
-  currentAnnouncement:any = this.announcements[this.currentIndex];
-  constructor() { 
+  currentAnnouncement:Announcement;
+  editing : boolean = false;
+  currentUser: User;
+  
+  constructor(private authenticationService: AuthenticationService) { 
+    this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
   ngOnInit(): void {
-
+    this.getAnnouncementData();
+    this.currentAnnouncement = this.announcementArray[this.currentIndex];
   }
 
   nextAnnouncement(){
     this.currentIndex+=1;
-    if(this.currentIndex == this.announcements.length) {
+    if(this.currentIndex == this.announcementArray.length) {
       this.currentIndex = 0;
     }
-    this.currentAnnouncement = this.announcements[this.currentIndex];
+    this.currentAnnouncement = this.announcementArray[this.currentIndex];
   }
 
   lastAnnouncement(){
     this.currentIndex = this.currentIndex-1;
     if(this.currentIndex < 0) {
-      this.currentIndex = this.announcements.length-1;
+      this.currentIndex = this.announcementArray.length-1;
     }
-    this.currentAnnouncement = this.announcements[this.currentIndex];
+    this.currentAnnouncement = this.announcementArray[this.currentIndex];
+  }
+
+  addNewAnnouncement(){
+    var an: Announcement = {
+      title:"",
+      content:""
+    };
+
+    this.announcementArray.push(an);
+    this.currentAnnouncement = this.announcementArray[this.announcementArray.length-1];
+    this.currentIndex = this.announcementArray.length-1;
+    this.editing = true;
+  }
+
+  getAnnouncementData(){
+    this.announcementArray = announcements;
+  }
+
+  enableEditing(){
+    this.editing = !this.editing;
+    if (this.currentIndex == this.announcementArray.length-1 && (this.currentAnnouncement.title == "" || this.currentAnnouncement.content == "")){
+      this.deleteAnnouncement();
+    }
+  }
+
+  saveEdit(){
+    this.announcementArray[this.currentIndex].content = this.currentAnnouncement.content;
+    this.announcementArray[this.currentIndex].title = this.currentAnnouncement.title;
+    this.editing = false;
+  }
+
+  deleteAnnouncement(){
+    this.announcementArray.splice(this.currentIndex,1);
+    this.currentIndex = 0;
+    if(this.announcementArray.length == 0){
+      var an: Announcement = {
+        title:"No announcements for now",
+        content:""
+      };
+      this.announcementArray.push(an);
+    }
+    this.currentAnnouncement = this.announcementArray[this.currentIndex];
   }
 
 }
 
-export interface Annoucement{
+export interface Announcement{
   title: string;
   content: string;
 }

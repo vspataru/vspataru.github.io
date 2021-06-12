@@ -1,10 +1,32 @@
 <mat-card class="content-card">
-    <mat-card-content>
+    <mat-card-content *ngIf="!editing; else editMode">
         <mat-card-title class="card-title">
             <h1 class="title"><mat-icon [inline]="true" color="primary" style="margin-right: 4px;">announcement</mat-icon>{{currentAnnouncement.title}}</h1>
+            <div class="adminbuttons" *ngIf="currentUser.role == 'ADMIN'">
+                <button mat-icon-button matTooltip="Add announcement" matTooltipPosition="below" (click)="addNewAnnouncement()"><mat-icon color="primary">add</mat-icon></button>
+                <button mat-icon-button matTooltip="Edit announcement" matTooltipPosition="below" (click)="enableEditing()"><mat-icon color="primary">edit</mat-icon></button>
+                <button mat-icon-button matTooltip="Delete announcement" matTooltipPosition="below"(click)="deleteAnnouncement()"><mat-icon color="primary">delete</mat-icon></button>
+            </div>
         </mat-card-title>
     <button class="next-button" mat-icon-button (click)="nextAnnouncement()"><mat-icon class="nav-icon">navigate_next</mat-icon></button>    
     <button class="back-button" mat-icon-button (click)="lastAnnouncement()"><mat-icon class="nav-icon">navigate_before</mat-icon></button>  
     <p>{{currentAnnouncement.content}}</p>
     </mat-card-content>
+    <ng-template #editMode>
+        <mat-card-content>
+            <mat-card-title class="card-title">
+                <input type="text" placeholder="Enter a title" [(ngModel)]="currentAnnouncement.title" name="title" style="background-color: rgba(236, 236, 236, 0.473);" matInput value={{currentAnnouncement.title}}>
+                <div class="adminbuttons">
+                    <button mat-icon-button matTooltip="Save" matTooltipPosition="below" (click)="saveEdit()"><mat-icon color="primary">save</mat-icon></button>
+                    <button mat-icon-button matTooltip="Cancel" matTooltipPosition="below" (click)="enableEditing()"><mat-icon color="primary">cancel</mat-icon></button>
+                </div>
+            </mat-card-title>
+        <button class="next-button" mat-icon-button (click)="nextAnnouncement()"><mat-icon class="nav-icon">navigate_next</mat-icon></button>    
+        <button class="back-button" mat-icon-button (click)="lastAnnouncement()"><mat-icon class="nav-icon">navigate_before</mat-icon></button>  
+        <textarea matInput [(ngModel)]="currentAnnouncement.content" cdkTextareaAutosize
+        cdkAutosizeMinRows="8"
+        cdkAutosizeMaxRows="10" name="description" value={{currentAnnouncement.content}} style="background-color: rgba(236, 236, 236, 0.473);"
+        placeholder="Enter the content of the announcement"></textarea>
+        </mat-card-content>
+    </ng-template>
 </mat-card>

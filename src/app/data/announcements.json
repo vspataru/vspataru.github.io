@@ -1,0 +1,10 @@
+[
+    {
+        "title":"Annoucenment 1",
+        "content":"Test content from Json file"
+    },
+    {
+        "title":"Annoucenment 2",
+        "content":"Test content from Json file 2"
+    }
+]

@@ -37,3 +37,11 @@ h2{
     align-content: center; 
     font-size: 25px;
   }
+
+.adminbuttons{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}  
+
+

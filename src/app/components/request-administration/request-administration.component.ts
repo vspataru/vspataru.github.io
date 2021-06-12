@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Request } from 'src/app/models/Request';
 import { RequestsService } from 'src/app/services/requests.service';
 import {MatAccordion} from '@angular/material/expansion';
+import { DataSource } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-request-administration',
@@ -14,6 +15,7 @@ export class RequestAdministrationComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   ACTIVE_REQUESTS: Request[] = [];
   ALL_REQUESTS: Request[] = [];
+  dataSource: DataSource<Request>;
 
   constructor(private requestService : RequestsService, private snack: MatSnackBar) { }
 

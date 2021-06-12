@@ -34,7 +34,7 @@
         <!-- Categories Column -->
         <ng-container matColumnDef="categories" class="column">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-          <td class="cell" mat-cell *matCellDef="let row"><div *ngFor="let category of row.category">{{category.name}}</div></td>
+          <td class="cell" mat-cell *matCellDef="let row">{{row.category}}</td>
           <ng-template #nocontent>Category not set</ng-template>
       </ng-container>
   
