@@ -37,7 +37,7 @@
     <!-- Action Column -->
     <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
-            <td mat-cell *matCellDef="let row"><button [disabled]="!row.available" mat-button (click)="openRequestDialog(row)" matTooltip="Request a book" matTooltipPosition="right"><mat-icon color="primary">library_add</mat-icon></button></td>
+            <td mat-cell *matCellDef="let row"><button [disabled]="!row.available" mat-button (click)="openRequestDialog(row)" matTooltip="Request book" matTooltipPosition="right"><mat-icon color="primary">library_add</mat-icon></button></td>
     </ng-container>      
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

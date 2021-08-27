@@ -45,4 +45,8 @@ export class AuthenticationService {
     return this.http.post<any>(this.apiUrl+"/register",payload);
   }
 
+  usernameValidator(){
+    
+  }
+
 }

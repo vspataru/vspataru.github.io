@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import announcements from 'src/app/data/announcements.json'
+import { Announcement } from 'src/app/models/Announcement';
 import { User } from 'src/app/models/User';
+import { AnnouncementsService } from 'src/app/services/announcements.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { SnackBarService } from 'src/app/services/snack-bar.service';
 
 @Component({
   selector: 'app-announcements',
@@ -13,17 +15,16 @@ export class AnnouncementsComponent implements OnInit {
 
   announcementArray:Announcement[];
   currentIndex: number = 0;
-  currentAnnouncement:Announcement;
+  currentAnnouncement:Announcement = new Announcement;
   editing : boolean = false;
   currentUser: User;
   
-  constructor(private authenticationService: AuthenticationService) { 
+  constructor(private authenticationService: AuthenticationService, private annnouncementsService: AnnouncementsService, private snack: SnackBarService) { 
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.getAnnouncementData();
   }
 
   ngOnInit(): void {
-    this.getAnnouncementData();
-    this.currentAnnouncement = this.announcementArray[this.currentIndex];
   }
 
   nextAnnouncement(){
@@ -44,6 +45,7 @@ export class AnnouncementsComponent implements OnInit {
 
   addNewAnnouncement(){
     var an: Announcement = {
+      announcementId: null,
       title:"",
       content:""
     };
@@ -55,7 +57,19 @@ export class AnnouncementsComponent implements OnInit {
   }
 
   getAnnouncementData(){
-    this.announcementArray = announcements;
+     this.annnouncementsService.getAllAnnouncements().subscribe(data => {
+      this.announcementArray = data;
+      this.currentAnnouncement = this.announcementArray[this.currentIndex];
+      if(data.length == 0 ){
+        var an: Announcement = {
+          announcementId: null,
+          title:"No announcements for now",
+          content:""
+        };
+        this.announcementArray.push(an);
+        this.currentAnnouncement = this.announcementArray[this.currentIndex];
+      }
+     });
   }
 
   enableEditing(){
@@ -65,17 +79,33 @@ export class AnnouncementsComponent implements OnInit {
     }
   }
 
-  saveEdit(){
+    async saveEdit(){
     this.announcementArray[this.currentIndex].content = this.currentAnnouncement.content;
     this.announcementArray[this.currentIndex].title = this.currentAnnouncement.title;
+    this.announcementArray[this.currentIndex].announcementId = this.currentAnnouncement.announcementId;
+
+    if(this.currentAnnouncement.announcementId == null){
+      await this.annnouncementsService.createAnnouncement(this.currentAnnouncement).catch(error => {
+      })
+    }
+    else{
+      await this.annnouncementsService.updateAnnouncement(this.currentAnnouncement).catch(error => {
+      });
+    }
+    this.getAnnouncementData();
+    
     this.editing = false;
   }
 
   deleteAnnouncement(){
+    this.annnouncementsService.deleteAnnouncement(this.announcementArray[this.currentIndex].announcementId).subscribe(data => {
+      this.snack.showSnackBar("Announcement deleted");
+    })
     this.announcementArray.splice(this.currentIndex,1);
     this.currentIndex = 0;
     if(this.announcementArray.length == 0){
       var an: Announcement = {
+        announcementId: null,
         title:"No announcements for now",
         content:""
       };
@@ -84,9 +114,4 @@ export class AnnouncementsComponent implements OnInit {
     this.currentAnnouncement = this.announcementArray[this.currentIndex];
   }
 
-}
-
-export interface Announcement{
-  title: string;
-  content: string;
 }

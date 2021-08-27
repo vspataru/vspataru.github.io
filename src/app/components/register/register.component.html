@@ -7,7 +7,9 @@
         <mat-form-field appearance="fill">
             <mat-label>Username</mat-label>
             <input matInput type="text" placeholder="Username" matInput formControlName="username">
+            <div class="errors" *ngIf="username.errors != null &&  username.errors['unique'] == false" style="color: red; font-style: italic; font-size: small;">Username already in use</div>
         </mat-form-field>
+
         <mat-form-field appearance="fill">
             <mat-label>First Name</mat-label>
             <input matInput type="text" placeholder="First Name" matInput formControlName="firstName">

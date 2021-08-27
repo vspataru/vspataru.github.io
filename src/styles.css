@@ -3,6 +3,10 @@ html, body{
     background-color: rgb(245, 245, 245);
 }
 
+html{
+  overflow:hidden;
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 20px;

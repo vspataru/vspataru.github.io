@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidators } from 'src/app/custom-validators';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -14,11 +14,13 @@ export class RegisterComponent implements OnInit {
 
 
   registrationForm: FormGroup;
+  username: AbstractControl;
 
   hide = true;
 
   constructor(private fb: FormBuilder,@Inject(MAT_DIALOG_DATA) private data: any, private dialogRef: MatDialogRef<DeleteDialogComponent>, private authenticationService: AuthenticationService) { 
     this.registrationForm = this.createSignupForm();
+    this.username = this.registrationForm.controls['username'];
   }
 
   ngOnInit(): void {
@@ -80,9 +82,12 @@ export class RegisterComponent implements OnInit {
 
     this.authenticationService.register(this.registrationForm.value).subscribe(data =>{
       console.log(data);
-    })
-
-    this.dialogRef.close();
+      this.dialogRef.close();
+    },
+    error => {
+      this.registrationForm.controls['username'].setErrors({'unique': false});
+    }
+    )
 
   }
 
